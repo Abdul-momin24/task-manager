@@ -59,26 +59,32 @@ const TaskBoard = () => {
         taskData.dueDate,
         taskData.priority
       );
-      const data = await res.json();
-      if (data && data.task) {
+  
+      const task = res.data?.task;
+  
+      if (task) {
         setTasks((prev) => [
           ...prev,
           {
-            id: data.task._id || Date.now().toString(),
-            title: data.task.title,
-            description: data.task.description,
-            priority: data.task.priority || "medium",
-            status: data.task.status,
-            dueDate: data.task.dueDate,
-            createdAt: data.task.createdAt || new Date().toISOString(),
+            id: task._id || Date.now().toString(),
+            title: task.title,
+            description: task.description,
+            priority: task.priority ?? "medium",
+            status: task.status,
+            dueDate: task.dueDate,
+            createdAt: task.createdAt ?? new Date().toISOString(),
           },
         ]);
+      } else {
+        console.warn("Task not returned from server.");
       }
+  
       setIsFormOpen(false);
     } catch (err) {
       console.error("Failed to add task:", err);
     }
   };
+  
 
   const updateTask = async (taskData: Omit<Task, "id" | "createdAt">) => {
     if (!editingTask) return;
