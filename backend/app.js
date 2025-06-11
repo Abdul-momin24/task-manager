@@ -4,11 +4,16 @@ import taskServiceRoute from "./src/routes/task.route.js";
 import errorHandler from "./src/utils/errorHandler.js";
 import cors from "cors";
 
+import dotenv from "dotenv"
+
+
 const app = express();
 
 app.use(express.json())
 
 app.use(express.urlencoded({extended:true}))
+
+dotenv.config()
 
 app.use(cors({
     origin: true, // Use your frontend URL in production

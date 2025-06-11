@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
+// Load environment variables
+dotenv.config();
 
-const connectDb = async()=>{
-    try{
-        const mongoUrl = "mongodb://localhost:27017/task-manager"
-
-        const conn = await mongoose.connect(mongoUrl);
-
-
-        console.log("Mongodb connecte ")
-    }catch(err){
-        console.log("There is the error in connecting to mongodv")
-        process.exit(1)
+const connectDb = async () => {
+  try {
+    const mongoUrl = process.env.MONGO_URI;
+    if (!mongoUrl) {
+      throw new Error("MONGO_URI is not defined in environment");
     }
-}
 
+    await mongoose.connect(mongoUrl);
+    console.log("✅ MongoDB connected successfully");
+  } catch (err) {
+    console.error("❌ Error connecting to MongoDB:", err.message);
+    process.exit(1);
+  }
+};
 
-export default  connectDb;
+export default connectDb;
