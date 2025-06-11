@@ -7,7 +7,7 @@ export const taskUrlget = async () => {
 
 // Create a new task
 export const taskUrlCreate = async (title, description, status, dueDate, priority) => {
-  return await axiosInstance.post("/task/create", {
+  return await axiosInstance.post("/task", {
     title,
     description,
     status,
