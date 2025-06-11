@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:true}))
 dotenv.config()
 
 app.use(cors({
-    origin: true, // Use your frontend URL in production
+    origin: "https://task-manager-five-ruby.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   }))
